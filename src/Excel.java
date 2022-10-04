@@ -1,23 +1,33 @@
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class Excel {
 public static void exGo() throws IOException{
         String path = "C:\\Users\\ItsFi\\Neads\\Test.xlsx"; //Адресс файла
-        XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(path)); //передача в конструктор
-        XSSFSheet myExcelSheet = myExcelBook.getSheet("Sheet1");//Выбор первого листа файла
-        XSSFRow row = myExcelSheet.getRow(0); //Нумерация строк с 0
+        XSSFWorkbook excelBook = new XSSFWorkbook(new FileInputStream(path)); //передача в конструктор
+        Sheet excelSheet = excelBook.getSheet("Sheet1");
+        int i = 1;
+        Row row = excelSheet.getRow(i);
+        Cell cell = row.getCell(5);
 
-        if(row.getCell(1).getCellType() == CellType.NUMERIC) { //Проверка на тип ячейки == ячейка с числом
-                Number number = row.getCell(1).getNumericCellValue();  //Если в ячейке число - запись данных ячейки в number
-                System.out.println("Number :" + number); // Слить все номера
+        if (cell.getNumericCellValue() > 0) {
+                row = excelSheet.getRow(i+1);
+                //Iterator rowIter = excelSheet.rowIterator();
+                //while (rowIter.hasNext()) {
+                        if (row.getCell(5).getCellType() == CellType.NUMERIC) { //Проверка на тип ячейки == ячейка с числом
+                                Number number = row.getCell(5).getNumericCellValue();  //Если в ячейке число - запись данных ячейки в number
+                                System.out.println("Number :" + number); // Слить все номера
+                        }
+
+
         }
-
-        myExcelBook.close();
+        excelBook.close();
 }
 }
 //
